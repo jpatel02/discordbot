@@ -40,12 +40,14 @@ async def on_message(message):
 async def hello(ctx):
     await ctx.send(f"Hello {ctx.author.mention}!")
 
-# Shutdown bot command WIP
+# !shutdown
 @bot.command()
 @commands.is_owner()
 async def shutdown(ctx):
-    await ctx.bot.logout()
+    await ctx.send("I'm going offline now.")
+    await bot.close()
 
+# !assign
 @bot.command()
 async def assign(ctx):
     role = discord.utils.get(ctx.guild.roles, name=secret_role)
@@ -55,6 +57,7 @@ async def assign(ctx):
     else:
         await ctx.send("Role doesn't exist")
 
+# !remove
 @bot.command()
 async def remove(ctx):
     role = discord.utils.get(ctx.guild.roles, name=secret_role)
@@ -64,14 +67,17 @@ async def remove(ctx):
     else:
         await ctx.send("Role doesn't exist")
 
+# !dm
 @bot.command()
 async def dm(ctx, *, msg):
     await ctx.author.send(f"You said {msg}")
 
+# !reply
 @bot.command()
 async def reply(ctx):
     await ctx.reply("This is a reply to your message!")
 
+# !poll
 @bot.command()
 async def poll(ctx, *, question):
     embed = discord.Embed(title="New Poll", description=question)
@@ -79,6 +85,7 @@ async def poll(ctx, *, question):
     await poll_message.add_reaction("👍")
     await poll_message.add_reaction("👎")
 
+# !secret
 @bot.command()
 @commands.has_role(secret_role)
 async def secret(ctx):

@@ -1,2 +1,4 @@
 discord.py
+ffmpeg
+YouTube-dl
 python-dotenv
